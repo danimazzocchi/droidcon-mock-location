@@ -1,0 +1,14 @@
+<resources>
+    <string name="title_activity_mock_support">mocktest</string>
+    <string name="pause">PAUSE</string>
+    <string name="resume">RESUME</string>
+    <string name="activate">ACTIVATE</string>
+    <string name="move_to_markers">GO TO MARKERS</string>
+    <string name="stop">STOP</string>
+    <string name="accuracy">Accuracy</string>
+    <string name="speed">Speed</string>
+    <string name="locations_path_details">Locations path details</string>
+    <string name="_0">0</string>
+    <string name="clear">CLEAR</string>
+    <string name="preference_file_key">com.droidcon.mocktest.PREFERENCE_FILE_KEY</string>
+</resources>
