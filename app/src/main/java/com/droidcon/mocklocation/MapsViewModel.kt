@@ -7,6 +7,12 @@ import android.os.Looper
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.droidcon.mocklocation.domain.UiCoordinates
+import com.droidcon.mocklocation.domain.UiGeofence
+import com.droidcon.mocklocation.geofence.GeofenceManager
+import com.droidcon.mocklocation.support.Event
+import com.droidcon.mocklocation.support.GEOFENCES_COORDINATES
+import com.droidcon.mocklocation.support.GEOFENCE_RADIUS
 import com.droidcon.mocktest.mocklocation.locationhandler.MockLocationHandler
 import com.droidcon.mocktest.mocklocation.locationhandler.MockLocationHandlerImpl
 import com.google.android.gms.location.LocationCallback
@@ -22,14 +28,20 @@ class MapsViewModel(application: Application): AndroidViewModel(application) {
         get() = _errorLiveEvent
 
     private val _errorLiveEvent = MutableLiveData<Event<String>>()
-    private val geofenceManager: GeofenceManager = GeofenceManager(getApplication())
+    private val geofenceManager: GeofenceManager =
+        GeofenceManager(getApplication())
     private var mockLocationHandler: MockLocationHandler =
         MockLocationHandlerImpl(getApplication())
 
     private var locationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult?) {
             locationResult ?: return
-            uiCoordinatesLiveData.postValue(UiCoordinates(locationResult.lastLocation.latitude, locationResult.lastLocation.longitude))
+            uiCoordinatesLiveData.postValue(
+                UiCoordinates(
+                    locationResult.lastLocation.latitude,
+                    locationResult.lastLocation.longitude
+                )
+            )
         }
     }
 
@@ -39,12 +51,19 @@ class MapsViewModel(application: Application): AndroidViewModel(application) {
             .addOnSuccessListener {
                 val uiGeofences = arrayListOf<UiGeofence>()
                 GEOFENCES_COORDINATES.forEach {
-                    uiGeofences.add(UiGeofence(it.first, it.second, GEOFENCE_RADIUS.toDouble()))
+                    uiGeofences.add(
+                        UiGeofence(
+                            it.first,
+                            it.second,
+                            GEOFENCE_RADIUS.toDouble()
+                        )
+                    )
                 }
                 uiGeofencesLiveData.postValue(uiGeofences)
             }
             .addOnErrorListener {
-                _errorLiveEvent.value = Event("Error")
+                _errorLiveEvent.value =
+                    Event("Error")
             }
 
         LocationServices.getFusedLocationProviderClient(getApplication() as Context).requestLocationUpdates(

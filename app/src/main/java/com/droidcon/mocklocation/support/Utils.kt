@@ -1,4 +1,4 @@
-package com.droidcon.mocklocation
+package com.droidcon.mocklocation.support
 
 import android.graphics.Color
 import com.google.android.gms.maps.GoogleMap

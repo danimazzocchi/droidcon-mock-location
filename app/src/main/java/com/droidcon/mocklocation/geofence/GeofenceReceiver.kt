@@ -1,4 +1,4 @@
-package com.droidcon.mocklocation
+package com.droidcon.mocklocation.geofence
 
 import android.content.BroadcastReceiver
 import android.content.Context
